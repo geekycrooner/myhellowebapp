@@ -1,11 +1,9 @@
 from django.shortcuts import render
+from collection.models import Verse
 
-# Create your views here.
 def index(request):
-  number = 6
-  thing = "Thing name"
-  # passing the variable to the view
+  verses = Verse.objects.all()
+
   return render(request, 'index.html', {
-    'number': number,
-    'thing': thing,
+    'verses': verses,
   })

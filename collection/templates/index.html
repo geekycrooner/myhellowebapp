@@ -5,22 +5,8 @@
 {% endblock title %}
 
 {% block content %}
-  <h1>Hello World!</h1>
-
-  <p>{{ number }}</p>
-
-  <p>{% if number %}Number exists!{% endif %}</p>
-
-  <p>There are six dogs! {% if number == 6 %} True {% else %} False {% endif %}</p>
-
-  <p>There are {{number}} dog{{ number|pluralize }}!</p>
-
-  <p>There are {{number}} walrus{{ number|pluralize:"es" }}!</p>
-
-  <p>There are {{ number|apnumber }} porcupine{{ number|pluralize }}!</p>
-
-  <p>This is my name: {{ thing }}</p>
-  <p>...Or is it: {{ thing|slugify }}</p>
-  <p>...Or is it: {{ thing|title }}</p>
-  <p>But you can call me {{ thing|truncatewords:1 }} for short.</p>
+  {% for verse in verses %}
+    <h2>{{verse.ref}} <span>{{verse.version}}</span></h2>
+    <p>{{verse.text}}</p>
+  {% endfor %}
 {% endblock content %}
