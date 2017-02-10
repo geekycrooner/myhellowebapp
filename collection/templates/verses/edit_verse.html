@@ -1,0 +1,13 @@
+{% extends 'base.html' %}
+{% block title %}
+  Edit {{ verse.ref }} - {{ block.super }}
+{% endblock title %}
+
+{% block content %}
+  <h1>Edit "{{ verse.ref }}"</h1>
+  <form role = "form" action="" method="POST">
+    {% csrf_token %}
+    {{ form.as_p }}
+    <button type="submit">Submit</button>
+  </form>
+{% endblock content %}

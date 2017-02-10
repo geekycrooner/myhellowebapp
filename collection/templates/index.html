@@ -6,7 +6,9 @@
 
 {% block content %}
   {% for verse in verses %}
-    <h2>{{verse.ref}} <span>{{verse.version}}</span></h2>
+    <h2>
+      <a href="{% url 'verse_detail' slug=verse.slug %}">{{verse.ref}} <span>{{verse.version}}</span></a>
+    </h2>
     <p>{{verse.text}}</p>
   {% endfor %}
 {% endblock content %}

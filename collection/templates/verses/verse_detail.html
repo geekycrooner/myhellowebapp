@@ -1,0 +1,10 @@
+{% extends 'base.html' %}
+{% block title %}
+  {{ verse.ref }} {{ verse.version }} - {{ block.super }}
+{% endblock title %}
+
+{% block content %}
+  <h1>{{verse.ref}} <span>{{verse.version}}</span></h1>
+  <p>{{verse.text}}</p>
+  <a href="{% url 'edit_verse' slug=verse.slug %}">Edit me!</a>
+{% endblock content %}
