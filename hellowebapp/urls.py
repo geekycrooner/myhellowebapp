@@ -11,7 +11,7 @@ from django.contrib.auth.views import (
 
 from django.conf.urls import url, include
 from django.contrib import admin
-from django.views.generic import TemplateView
+from django.views.generic import (TemplateView, RedirectView,)
 from collection import views
 
 urlpatterns = [
@@ -22,19 +22,33 @@ urlpatterns = [
     url(r'^contact/$', 
       TemplateView.as_view(template_name='contact.html'), 
       name='contact'),
+
+    # verse URLs 
+    url(r'^verses/$',
+      RedirectView.as_view(pattern_name='browse', permanent=True)),
     url(r'^verses/(?P<slug>[-\w]+)/$', 
       views.verse_detail,
       name='verse_detail'),
     url(r'^verses/(?P<slug>[-\w]+)/edit/$', 
       views.edit_verse,
       name='edit_verse'),
-    # user registration urls
+    
+    # user registration URLs
     url(r'^accounts/register/$',
       MyRegistrationView.as_view(),
       name='registration_register'),
     url(r'^accounts/create_verse/$', 
       views.create_verse,
       name='registration_create_verse'),
+
+    # browse views
+    url(r'^browse/$',
+      RedirectView.as_view(pattern_name='browse', permanent=True)),
+    url(r'^browse/ref/$',
+      views.browse_by_ref, name='browse'),
+    url(r'^browse/ref/(?P<initial>[-\w]+)/$',
+      views.browse_by_ref, name='browse_by_ref'),
+
     # password reset urls
     url(r'^accounts/password/reset/$',
       password_reset,

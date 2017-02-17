@@ -1,0 +1,31 @@
+{% extends 'base.html' %}
+{% block title %}
+  Browse - {{ block.super }}
+{% endblock title %}
+
+{% block content %}
+  <h1>
+    Browse Verses{% if initial %} Starting with 
+    '{{ initial|title }}'{% endif %}
+  </h1>
+
+  <!-- Only need letters/numbers that actually begin books of the Bible -->
+  {% for letter in 'adceghijlmnoprstz123' %} 
+  <a href="{% url 'browse_by_ref' initial=letter %}"
+  {% if initial == letter %}class="active"{% endif %}>
+    {{ letter|upper }}
+  </a>
+  {% endfor %}
+
+  {% for verse in verses %}
+  <ul>
+    <li>
+      <a href="{% url 'verse_detail' slug=verse.slug %}">
+        {{ verse.ref }}
+      </a>
+    </li>
+  </ul>
+  {% empty %}
+  <p>Sorry, no results!</p>
+  {% endfor %}
+{% endblock content %}

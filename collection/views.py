@@ -17,6 +17,18 @@ def verse_detail(request, slug):
     'verse': verse,
   })
 
+def browse_by_ref(request, initial=None):
+  if initial:
+    verses = Verse.objects.filter(ref__istartswith=initial)
+    verses = verses.order_by('ref')
+  else:
+    verses = Verse.objects.all().order_by('ref')
+  
+  return render(request, 'search/search.html', {
+    'verses': verses,
+    'initial': initial,
+  })  
+
 @login_required
 def edit_verse(request, slug):
   # grab the object 
@@ -25,7 +37,7 @@ def edit_verse(request, slug):
   # make sure the logged in user is the owner of the thing
   if thing.user != request.user:
     raise Http404
-    
+
   # set the form we're using 
   form_class = VerseForm
 
@@ -73,3 +85,15 @@ def create_verse(request):
   return render(request, 'verses/create_verse.html', {
     'form': form,
   })
+
+def browse_by_ref(request, initial=None):
+  if initial:
+    verses = Verse.objects.filter(ref__istartswith=initial)
+    verses = verses.order_by('ref')
+  else:
+    verses = Verse.objects.all().order_by('ref')
+  
+  return render(request, 'search/search.html', {
+    'verses': verses,
+    'initial': initial,
+  }) 
